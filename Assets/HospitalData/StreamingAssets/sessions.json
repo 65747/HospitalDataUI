@@ -480,6 +480,22 @@
         "TempsReaction": 0.0,
         "PrecisionPointage": 0.0,
         "Commentaire": "Test Add Session"
+      },
+      {
+        "IDpatient": "patient-001",
+        "EnvironnementUtilise": "Test",
+        "PositionDepart": "assis",
+        "DateDebut": "2026-02-10T13:15:45.7239241Z",
+        "niveauDifficulte": "facile",
+        "NiveauAssistance_moyen": 0,
+        "ObjectifsAtteints": "oui",
+        "ObjectifsManques": "non",
+        "duree": 60,
+        "ScoreTotal": 100,
+        "IdSuperviseur": "",
+        "TempsReaction": 0.0,
+        "PrecisionPointage": 0.0,
+        "Commentaire": "Test Add Session"
       }
     ]
   }
