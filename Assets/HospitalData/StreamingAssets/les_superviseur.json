@@ -178,5 +178,11 @@
     "Nom": "TestAdd",
     "Prenom": "Superviseur",
     "fonction": "Test"
+  },
+  {
+    "IdSuperviseur": "sup-c87e894c509f4cbd80c9c66ab08571fb",
+    "Nom": "TestAdd",
+    "Prenom": "Superviseur",
+    "fonction": "Test"
   }
 ]

@@ -350,5 +350,16 @@
     "CoteNeglige": "droit",
     "DateCreation": "2026-02-10T13:12:53.1828658Z",
     "SuiviPatient": "krutoi patsan"
+  },
+  {
+    "IDpatient": "patient-c5011339f3d34d729ab42953c7e22ce6",
+    "Nom": "TestAdd",
+    "Prenom": "Patient",
+    "date_de_naissance": 1990,
+    "Sexe": "M",
+    "Pathologie": "Test",
+    "CoteNeglige": "droit",
+    "DateCreation": "2026-02-10T13:15:45.7056099Z",
+    "SuiviPatient": "Test Add"
   }
 ]
