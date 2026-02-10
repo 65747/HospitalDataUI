@@ -295,5 +295,16 @@
     "CoteNeglige": "droit",
     "DateCreation": "2026-02-10T12:47:52.4098652Z",
     "SuiviPatient": "Test Add"
+  },
+  {
+    "IDpatient": "patient-f650a97c0e8e40a98fda687d9fe1b233",
+    "Nom": "TestAdd",
+    "Prenom": "Patient",
+    "date_de_naissance": 1990,
+    "Sexe": "M",
+    "Pathologie": "Test",
+    "CoteNeglige": "droit",
+    "DateCreation": "2026-02-10T12:54:25.8230009Z",
+    "SuiviPatient": "Test Add"
   }
 ]

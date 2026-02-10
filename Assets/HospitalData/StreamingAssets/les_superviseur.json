@@ -154,5 +154,11 @@
     "Nom": "TestAdd",
     "Prenom": "Superviseur",
     "fonction": "Test"
+  },
+  {
+    "IdSuperviseur": "sup-3e60fb0933094079bc6b03edc38d7f84",
+    "Nom": "TestAdd",
+    "Prenom": "Superviseur",
+    "fonction": "Test"
   }
 ]
