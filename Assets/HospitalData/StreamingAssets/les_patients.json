@@ -339,5 +339,16 @@
     "CoteNeglige": "droit",
     "DateCreation": "2026-02-10T13:05:34.4812664Z",
     "SuiviPatient": "Test Add"
+  },
+  {
+    "IDpatient": "patient-d1ee01fef65743639d550382175d9d8c",
+    "Nom": "pupochek",
+    "Prenom": "barabolka",
+    "date_de_naissance": 2026,
+    "Sexe": "Homme",
+    "Pathologie": "aaaaa",
+    "CoteNeglige": "droit",
+    "DateCreation": "2026-02-10T13:12:53.1828658Z",
+    "SuiviPatient": "krutoi patsan"
   }
 ]
