@@ -1,0 +1,13 @@
+[
+  {
+    "IDpatient": "patient-5c7b80d733524e528eba0ba461117cb9",
+    "Nom": "TestAdd",
+    "Prenom": "Patient",
+    "date_de_naissance": 1990,
+    "Sexe": "M",
+    "Pathologie": "Test",
+    "CoteNeglige": "droit",
+    "DateCreation": "2026-02-05T14:32:37.963401Z",
+    "SuiviPatient": "Test Add"
+  }
+]
