@@ -42,6 +42,7 @@ public class AddSupervisorUI : MonoBehaviour
         // Show optional initial canvas buttons when form opens
         if (InitialAddButton) InitialAddButton.SetActive(true);
         if (InitialCancelButton) InitialCancelButton.SetActive(true);
+        MainMenuButtonsController.Instance?.OnMenuOpened();
     }
 
     public void HideForm()
@@ -51,6 +52,7 @@ public class AddSupervisorUI : MonoBehaviour
         // Hide optional initial canvas buttons when form is closed
         if (InitialAddButton) InitialAddButton.SetActive(false);
         if (InitialCancelButton) InitialCancelButton.SetActive(false);
+        MainMenuButtonsController.Instance?.OnMenuClosed();
     }
 
     public void OnAddSupervisor()

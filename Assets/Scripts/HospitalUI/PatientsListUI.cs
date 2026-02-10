@@ -9,7 +9,6 @@ using Hospital.Data.Models;
 public class PatientsListUI : MonoBehaviour
 {
     public GameObject ListPanel;
-    [Tooltip("Кнопка « show list » — при клике откроется панель. Перетащи сюда кнопку из сцены.")]
     public Button ShowListButton;
     public GameObject[] HideWhenListOpen;
     public TMP_InputField SearchFieldTMP;
@@ -60,6 +59,7 @@ public class PatientsListUI : MonoBehaviour
     {
         if (ListPanel != null) ListPanel.SetActive(true);
         SetButtonsVisible(false);
+        MainMenuButtonsController.Instance?.OnMenuOpened();
         Refresh();
     }
 
@@ -67,6 +67,7 @@ public class PatientsListUI : MonoBehaviour
     {
         if (ListPanel != null) ListPanel.SetActive(false);
         SetButtonsVisible(true);
+        MainMenuButtonsController.Instance?.OnMenuClosed();
     }
 
     void SetButtonsVisible(bool visible)

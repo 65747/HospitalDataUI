@@ -54,6 +54,7 @@ public class AddPatientUI : MonoBehaviour
         // Show optional initial canvas buttons when form opens
         if (InitialAddButton) InitialAddButton.SetActive(true);
         if (InitialCancelButton) InitialCancelButton.SetActive(true);
+        MainMenuButtonsController.Instance?.OnMenuOpened();
     }
 
     // Called by a "Cancel" button on the form to close it.
@@ -64,6 +65,7 @@ public class AddPatientUI : MonoBehaviour
         // Hide optional initial canvas buttons when form is closed
         if (InitialAddButton) InitialAddButton.SetActive(false);
         if (InitialCancelButton) InitialCancelButton.SetActive(false);
+        MainMenuButtonsController.Instance?.OnMenuClosed();
     }
 
     // Called by the "Add" button on the form.
