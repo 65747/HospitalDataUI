@@ -27,6 +27,10 @@ public class EnvironnementSelectionUI : MonoBehaviour
     public Button StartButton;
     public Button CancelButton;
 
+    [Header("Optionnel — cache le bouton Commencer quand cette panneau est ouverte")]
+    [Tooltip("Bouton « Commencer » à cacher. Assignez dans l'Inspector ou laissez vide (recherche auto).")]
+    public GameObject CommencerButtonToHide;
+
     private List<EnvironnementJson> _environnementsDisponibles;
     private EnvironnementJson _environnementSelectionne;
     private ConfigurationEnvironnement _configuration;
@@ -68,6 +72,12 @@ public class EnvironnementSelectionUI : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (FormPanel != null && FormPanel.activeInHierarchy)
+            EnsureCommencerButtonHidden();
+    }
+
     /// <summary>
     /// Affiche le formulaire de sélection d'environnement. Cache le bouton Commencer.
     /// </summary>
@@ -78,10 +88,39 @@ public class EnvironnementSelectionUI : MonoBehaviour
         FormPanel.SetActive(true);
         ClearStatus();
         MainMenuButtonsController.Instance?.OnMenuOpened();
+        EnsureCommencerButtonHidden();
+        ChargerEnvironnements();
+    }
+
+    void EnsureCommencerButtonHidden()
+    {
+        if (CommencerButtonToHide != null)
+        {
+            CommencerButtonToHide.SetActive(false);
+            return;
+        }
         var doctorLogin = Object.FindObjectOfType<DoctorLoginUI>();
         if (doctorLogin != null && doctorLogin.CommencerButton != null)
+        {
             doctorLogin.CommencerButton.gameObject.SetActive(false);
-        ChargerEnvironnements();
+            return;
+        }
+        var btn = FindCommencerButtonInScene();
+        if (btn != null)
+            btn.gameObject.SetActive(false);
+    }
+
+    static Button FindCommencerButtonInScene()
+    {
+        foreach (var b in Object.FindObjectsOfType<Button>(true))
+        {
+            if (b.gameObject.name.IndexOf("Commencer", System.StringComparison.OrdinalIgnoreCase) >= 0) return b;
+            var t = b.GetComponentInChildren<TMP_Text>(true);
+            if (t != null && (t.text ?? "").Trim().Equals("Commencer", System.StringComparison.OrdinalIgnoreCase)) return b;
+            var legacy = b.GetComponentInChildren<Text>(true);
+            if (legacy != null && (legacy.text ?? "").Trim().Equals("Commencer", System.StringComparison.OrdinalIgnoreCase)) return b;
+        }
+        return null;
     }
 
     /// <summary>

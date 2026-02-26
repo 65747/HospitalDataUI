@@ -752,6 +752,54 @@
         "TempsReaction": 0.0,
         "PrecisionPointage": 0.0,
         "Commentaire": "Test Add Session"
+      },
+      {
+        "IDpatient": "patient-001",
+        "EnvironnementUtilise": "Test",
+        "PositionDepart": "assis",
+        "DateDebut": "2026-02-26T14:21:53.6023445Z",
+        "niveauDifficulte": "facile",
+        "NiveauAssistance_moyen": 0,
+        "ObjectifsAtteints": "oui",
+        "ObjectifsManques": "non",
+        "duree": 60,
+        "ScoreTotal": 100,
+        "IdSuperviseur": "",
+        "TempsReaction": 0.0,
+        "PrecisionPointage": 0.0,
+        "Commentaire": "Test Add Session"
+      },
+      {
+        "IDpatient": "patient-001",
+        "EnvironnementUtilise": "Test",
+        "PositionDepart": "assis",
+        "DateDebut": "2026-02-26T14:22:36.3584747Z",
+        "niveauDifficulte": "facile",
+        "NiveauAssistance_moyen": 0,
+        "ObjectifsAtteints": "oui",
+        "ObjectifsManques": "non",
+        "duree": 60,
+        "ScoreTotal": 100,
+        "IdSuperviseur": "",
+        "TempsReaction": 0.0,
+        "PrecisionPointage": 0.0,
+        "Commentaire": "Test Add Session"
+      },
+      {
+        "IDpatient": "patient-001",
+        "EnvironnementUtilise": "Test",
+        "PositionDepart": "assis",
+        "DateDebut": "2026-02-26T14:24:02.7078722Z",
+        "niveauDifficulte": "facile",
+        "NiveauAssistance_moyen": 0,
+        "ObjectifsAtteints": "oui",
+        "ObjectifsManques": "non",
+        "duree": 60,
+        "ScoreTotal": 100,
+        "IdSuperviseur": "",
+        "TempsReaction": 0.0,
+        "PrecisionPointage": 0.0,
+        "Commentaire": "Test Add Session"
       }
     ]
   }
