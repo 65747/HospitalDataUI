@@ -185,8 +185,17 @@ public class DoctorLoginUI : MonoBehaviour
         MainMenuButtonsController.Instance?.OnMenuClosed();
     }
 
+    /// <summary>Скрывает только панель Commencer, кнопка «Commencer» остаётся скрытой (для открытия формы добавления).</summary>
+    public void HidePanelOnly()
+    {
+        if (LoginPanel != null)
+            LoginPanel.SetActive(false);
+        // CommencerButton не показываем — пользователь в форме добавления
+    }
+
     void OnAddSupervisorClick()
     {
+        HidePanelOnly();
         if (AddSupervisorUI != null)
             AddSupervisorUI.ShowForm();
         else
@@ -195,6 +204,7 @@ public class DoctorLoginUI : MonoBehaviour
 
     void OnAddPatientClick()
     {
+        HidePanelOnly();
         if (AddPatientUI != null)
             AddPatientUI.ShowForm();
         else

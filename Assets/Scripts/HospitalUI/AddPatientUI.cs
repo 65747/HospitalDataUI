@@ -66,7 +66,7 @@ public class AddPatientUI : MonoBehaviour
         MainMenuButtonsController.Instance?.OnMenuOpened();
     }
 
-    // Called by a "Cancel" button on the form to close it.
+    // Called by a "Cancel" button on the form to close it. Returns to Commencer menu (not initial screen).
     public void HideForm()
     {
         if (FormPanel == null) return;
@@ -75,7 +75,11 @@ public class AddPatientUI : MonoBehaviour
         if (InitialCancelButton) InitialCancelButton.SetActive(false);
         MainMenuButtonsController.Instance?.OnMenuClosed();
         var doctorLogin = UnityEngine.Object.FindObjectOfType<DoctorLoginUI>();
-        if (doctorLogin != null) doctorLogin.RefreshPatients();
+        if (doctorLogin != null)
+        {
+            doctorLogin.ShowLoginPanel(); // вернуть в меню Commencer (списки), не на экран с одной кнопкой
+            doctorLogin.RefreshPatients();
+        }
     }
 
     // Called by the "Add" button on the form.

@@ -460,5 +460,35 @@
     "Nom": "TestAdd",
     "Prenom": "Superviseur",
     "fonction": "Test"
+  },
+  {
+    "IdSuperviseur": "sup-694fcd1bd34b4fa8b9b4dd6c022ade34",
+    "Nom": "TestAdd",
+    "Prenom": "Superviseur",
+    "fonction": "Test"
+  },
+  {
+    "IdSuperviseur": "sup-42882720999f4ace89c52cd5b5c04b69",
+    "Nom": "TestAdd",
+    "Prenom": "Superviseur",
+    "fonction": "Test"
+  },
+  {
+    "IdSuperviseur": "sup-4df9ae4f1cef47f989619b936288d1cc",
+    "Nom": "TestAdd",
+    "Prenom": "Superviseur",
+    "fonction": "Test"
+  },
+  {
+    "IdSuperviseur": "sup-81474366d7f9452b849df940b1f8eb57",
+    "Nom": "TestAdd",
+    "Prenom": "Superviseur",
+    "fonction": "Test"
+  },
+  {
+    "IdSuperviseur": "sup-44a3ddb466ae433f8a34e3827db83380",
+    "Nom": "TestAdd",
+    "Prenom": "Superviseur",
+    "fonction": "Test"
   }
 ]

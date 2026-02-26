@@ -49,10 +49,15 @@ public class AddSupervisorUI : MonoBehaviour
     {
         if (FormPanel == null) return;
         FormPanel.SetActive(false);
-        // Hide optional initial canvas buttons when form is closed
         if (InitialAddButton) InitialAddButton.SetActive(false);
         if (InitialCancelButton) InitialCancelButton.SetActive(false);
         MainMenuButtonsController.Instance?.OnMenuClosed();
+        var doctorLogin = UnityEngine.Object.FindObjectOfType<DoctorLoginUI>();
+        if (doctorLogin != null)
+        {
+            doctorLogin.ShowLoginPanel(); // вернуть в меню Commencer, не на экран с одной кнопкой
+            doctorLogin.RefreshSupervisors();
+        }
     }
 
     public void OnAddSupervisor()

@@ -69,7 +69,7 @@ public class EnvironnementSelectionUI : MonoBehaviour
     }
 
     /// <summary>
-    /// Affiche le formulaire de sélection d'environnement
+    /// Affiche le formulaire de sélection d'environnement. Cache le bouton Commencer.
     /// </summary>
     public void ShowForm()
     {
@@ -78,17 +78,23 @@ public class EnvironnementSelectionUI : MonoBehaviour
         FormPanel.SetActive(true);
         ClearStatus();
         MainMenuButtonsController.Instance?.OnMenuOpened();
+        var doctorLogin = Object.FindObjectOfType<DoctorLoginUI>();
+        if (doctorLogin != null && doctorLogin.CommencerButton != null)
+            doctorLogin.CommencerButton.gameObject.SetActive(false);
         ChargerEnvironnements();
     }
 
     /// <summary>
-    /// Masque le formulaire
+    /// Masque le formulaire. Si Cancel — retour à la menue Commencer (pas à l'écran initial).
     /// </summary>
     public void HideForm()
     {
         if (FormPanel == null) return;
         FormPanel.SetActive(false);
         MainMenuButtonsController.Instance?.OnMenuClosed();
+        var doctorLogin = Object.FindObjectOfType<DoctorLoginUI>();
+        if (doctorLogin != null)
+            doctorLogin.ShowLoginPanel();
     }
 
     /// <summary>
