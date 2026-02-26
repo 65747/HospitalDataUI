@@ -48,4 +48,29 @@ public class SessionEnvelope
 {
     public List<SessionJson> Sessions { get; set; } = new();
 }
+
+public class EnvironnementJson
+{
+    public string IdEnvironnement { get; set; } = string.Empty;
+    public string NomEnvironnement { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public List<string> PositionsDisponibles { get; set; } = new();
+    public List<string> NiveauxDifficulte { get; set; } = new();
+    public int DureeDefaut { get; set; } = 60;
+    public string ImagePath { get; set; } = string.Empty;
+}
+
+public class EnvironnementEnvelope
+{
+    public List<EnvironnementJson> Environnements { get; set; } = new();
+}
+
+public class ConfigurationEnvironnement
+{
+    public string IdEnvironnement { get; set; } = string.Empty;
+    public string PositionDepart { get; set; } = string.Empty;
+    public string NiveauDifficulte { get; set; } = string.Empty;
+    public int NiveauAssistance { get; set; } = 0;
+    public int Duree { get; set; } = 60;
+}
 }

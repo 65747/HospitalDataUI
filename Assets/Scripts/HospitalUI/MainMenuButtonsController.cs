@@ -31,6 +31,12 @@ public class MainMenuButtonsController : MonoBehaviour
             Instance = null;
     }
 
+    void Update()
+    {
+        if (AnyMenuOpen())
+            SetMainButtonsVisible(false);
+    }
+
     /// <summary>Вызвать при открытии любой менюшки.</summary>
     public void OnMenuOpened()
     {

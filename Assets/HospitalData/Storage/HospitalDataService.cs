@@ -13,6 +13,7 @@ namespace Hospital.Data.Storage
         PatientsManager _patients;
         SuperviseursManager _superviseurs;
         SessionsManager _sessions;
+        EnvironnementsManager _environnements;
 
         HospitalDataService()
         {
@@ -43,5 +44,8 @@ namespace Hospital.Data.Storage
 
         // Manageur des sessions (sessions.json). Vérifie que l'ID patient et superviseur existent lors de Add/Update.
         public SessionsManager Sessions => _sessions ??= new SessionsManager(Patients, Superviseurs, Path.Combine(_basePath, "sessions.json"));
+
+        // Manageur des environnements (environnements.json).
+        public EnvironnementsManager Environnements => _environnements ??= new EnvironnementsManager(Path.Combine(_basePath, "environnements.json"));
     }
 }
