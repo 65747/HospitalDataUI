@@ -1,0 +1,104 @@
+[
+  {
+    "Environnements": [
+      {
+        "IdEnvironnement": "env-forest",
+        "NomEnvironnement": "Forêt Virtuelle",
+        "Description": "Un environnement forestier calme avec sons naturels pour la rééducation visuelle",
+        "PositionsDisponibles": [
+          "assis",
+          "debout",
+          "assise-centre"
+        ],
+        "NiveauxDifficulte": [
+          "facile",
+          "moyen",
+          "difficile"
+        ],
+        "DureeDefaut": 600,
+        "ImagePath": "Environments/forest.png"
+      },
+      {
+        "IdEnvironnement": "env-hospital",
+        "NomEnvironnement": "Hôpital Moderne",
+        "Description": "Environnement hospitalier réaliste pour simulation de vie quotidienne",
+        "PositionsDisponibles": [
+          "assis",
+          "debout",
+          "allonge"
+        ],
+        "NiveauxDifficulte": [
+          "facile",
+          "moyen",
+          "difficile"
+        ],
+        "DureeDefaut": 900,
+        "ImagePath": "Environments/hospital.png"
+      },
+      {
+        "IdEnvironnement": "env-city",
+        "NomEnvironnement": "Centre Ville",
+        "Description": "Simulation urbaine avec obstacles et distractions pour tester l'attention",
+        "PositionsDisponibles": [
+          "assis",
+          "debout"
+        ],
+        "NiveauxDifficulte": [
+          "moyen",
+          "difficile",
+          "expert"
+        ],
+        "DureeDefaut": 720,
+        "ImagePath": "Environments/city.png"
+      },
+      {
+        "IdEnvironnement": "env-beach",
+        "NomEnvironnement": "Plage Relaxante",
+        "Description": "Environnement côtier apaisant pour réduire le stress pendant la thérapie",
+        "PositionsDisponibles": [
+          "assis",
+          "debout",
+          "assise-centre"
+        ],
+        "NiveauxDifficulte": [
+          "facile",
+          "moyen"
+        ],
+        "DureeDefaut": 480,
+        "ImagePath": "Environments/beach.png"
+      },
+      {
+        "IdEnvironnement": "env-room",
+        "NomEnvironnement": "Salle Neutre",
+        "Description": "Environnement minimaliste sans distractions pour concentration maximale",
+        "PositionsDisponibles": [
+          "assis",
+          "debout",
+          "allonge",
+          "assise-centre"
+        ],
+        "NiveauxDifficulte": [
+          "facile",
+          "moyen",
+          "difficile"
+        ],
+        "DureeDefaut": 300,
+        "ImagePath": "Environments/room.png"
+      },
+      {
+        "IdEnvironnement": "env-test",
+        "NomEnvironnement": "Environnement Test",
+        "Description": "Environnement de test pour développement et calibration",
+        "PositionsDisponibles": [
+          "assis",
+          "debout"
+        ],
+        "NiveauxDifficulte": [
+          "facile"
+        ],
+        "DureeDefaut": 60,
+        "ImagePath": "Environments/test.png"
+      }
+    ]
+  }
+]
