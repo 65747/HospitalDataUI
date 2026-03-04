@@ -4,7 +4,6 @@ using TMPro;
 using System.Collections.Generic;
 using System.Linq;
 using Hospital.Data.Models;
-using Hospital.Data.Storage;
 
 /// <summary>
 /// Interface de sélection et configuration d'environnement pour les sessions VR
@@ -27,12 +26,11 @@ public class EnvironnementSelectionUI : MonoBehaviour
     public Button StartButton;
     public Button CancelButton;
 
-    [Header("Optionnel — cache le bouton Commencer quand cette panneau est ouverte")]
-    [Tooltip("Bouton « Commencer » à cacher. Assignez dans l'Inspector ou laissez vide (recherche auto).")]
-    public GameObject CommencerButtonToHide;
+    [Tooltip("Objet à réafficher quand le formulaire est fermé (ex: bouton Commencer).")]
+    public GameObject ShowWhenFormClosed;
 
-    private List<EnvironnementJson> _environnementsDisponibles;
-    private EnvironnementJson _environnementSelectionne;
+    private List<EnvironnementConfig> _environnementsDisponibles;
+    private EnvironnementConfig _environnementSelectionne;
     private ConfigurationEnvironnement _configuration;
 
     void Awake()
@@ -43,7 +41,6 @@ public class EnvironnementSelectionUI : MonoBehaviour
         if (DureeInputField != null)
         {
             DureeInputField.contentType = TMP_InputField.ContentType.IntegerNumber;
-            EnsureDureeInputClickable();
         }
 
         // Configurer le slider d'assistance
@@ -72,102 +69,72 @@ public class EnvironnementSelectionUI : MonoBehaviour
         }
     }
 
-    void Update()
+    void Start()
     {
+        // Si le panneau est déjà visible au chargement (ex: ouvert dans l'éditeur), remplir les listes
         if (FormPanel != null && FormPanel.activeInHierarchy)
-            EnsureCommencerButtonHidden();
+            ChargerEnvironnements();
     }
 
     /// <summary>
-    /// Affiche le formulaire de sélection d'environnement. Cache le bouton Commencer.
+    /// Affiche le formulaire de sélection d'environnement
     /// </summary>
     public void ShowForm()
     {
         if (FormPanel == null) return;
 
+        ChargerEnvironnements();
         FormPanel.SetActive(true);
         ClearStatus();
         MainMenuButtonsController.Instance?.OnMenuOpened();
-        EnsureCommencerButtonHidden();
-        ChargerEnvironnements();
-    }
-
-    void EnsureCommencerButtonHidden()
-    {
-        if (CommencerButtonToHide != null)
-        {
-            CommencerButtonToHide.SetActive(false);
-            return;
-        }
-        var doctorLogin = Object.FindObjectOfType<DoctorLoginUI>();
-        if (doctorLogin != null && doctorLogin.CommencerButton != null)
-        {
-            doctorLogin.CommencerButton.gameObject.SetActive(false);
-            return;
-        }
-        var btn = FindCommencerButtonInScene();
-        if (btn != null)
-            btn.gameObject.SetActive(false);
-    }
-
-    static Button FindCommencerButtonInScene()
-    {
-        foreach (var b in Object.FindObjectsOfType<Button>(true))
-        {
-            if (b.gameObject.name.IndexOf("Commencer", System.StringComparison.OrdinalIgnoreCase) >= 0) return b;
-            var t = b.GetComponentInChildren<TMP_Text>(true);
-            if (t != null && (t.text ?? "").Trim().Equals("Commencer", System.StringComparison.OrdinalIgnoreCase)) return b;
-            var legacy = b.GetComponentInChildren<Text>(true);
-            if (legacy != null && (legacy.text ?? "").Trim().Equals("Commencer", System.StringComparison.OrdinalIgnoreCase)) return b;
-        }
-        return null;
     }
 
     /// <summary>
-    /// Masque le formulaire. Si Cancel — retour à la menue Commencer (pas à l'écran initial).
+    /// Masque le formulaire
     /// </summary>
     public void HideForm()
     {
         if (FormPanel == null) return;
         FormPanel.SetActive(false);
+        if (ShowWhenFormClosed != null) ShowWhenFormClosed.SetActive(true);
         MainMenuButtonsController.Instance?.OnMenuClosed();
-        var doctorLogin = Object.FindObjectOfType<DoctorLoginUI>();
-        if (doctorLogin != null)
-            doctorLogin.ShowLoginPanel();
     }
 
     /// <summary>
-    /// Charge les environnements disponibles depuis le service
+    /// Charge les environnements disponibles depuis le manager
     /// </summary>
     private void ChargerEnvironnements()
     {
+        // Toujours vider les dropdowns pour ne pas laisser "Option A, B, C" du template Unity
+        if (EnvironnementDropdown != null) EnvironnementDropdown.ClearOptions();
+        if (PositionDropdown != null) PositionDropdown.ClearOptions();
+        if (DifficulteDropdown != null) DifficulteDropdown.ClearOptions();
+
         try
         {
-            var basePath = HospitalDataService.Instance?.BasePath ?? "(null)";
-            Debug.Log($"[EnvironnementSelectionUI] Chargement depuis: {basePath}");
+            if (EnvironnementManager.Instance == null)
+            {
+                SetStatus("EnvironnementManager non trouvé !", true);
+                Debug.LogError("EnvironnementManager n'est pas dans la scène !");
+                if (EnvironnementDropdown != null)
+                    EnvironnementDropdown.AddOptions(new List<TMP_Dropdown.OptionData> { new TMP_Dropdown.OptionData("— EnvironnementManager manquant —") });
+                return;
+            }
 
-            _environnementsDisponibles = HospitalDataService.Instance.Environnements.GetAll().ToList();
-            if (_environnementsDisponibles == null) _environnementsDisponibles = new List<EnvironnementJson>();
+            _environnementsDisponibles = EnvironnementManager.Instance.GetAllEnvironnements();
 
             if (EnvironnementDropdown != null)
             {
-                EnvironnementDropdown.ClearOptions();
                 var options = _environnementsDisponibles
-                    .Select(e => new TMP_Dropdown.OptionData(e.NomEnvironnement))
+                    .Select(e => new TMP_Dropdown.OptionData(e.NomEnvironnement ?? e.IdEnvironnement ?? "?"))
                     .ToList();
-
-                if (options.Count == 0)
-                {
-                    options.Add(new TMP_Dropdown.OptionData("— Aucun environnement —"));
-                    SetStatus("Aucun environnement chargé. Vérifiez que le fichier environnements.json existe dans Assets/HospitalData/StreamingAssets/", true);
-                    Debug.LogWarning("[EnvironnementSelectionUI] Liste vide. Chemin attendu: " + System.IO.Path.Combine(basePath, "environnements.json"));
-                }
-
                 EnvironnementDropdown.AddOptions(options);
-                EnvironnementDropdown.value = 0;
-                EnvironnementDropdown.RefreshShownValue();
-                if (_environnementsDisponibles.Count > 0)
+
+                if (options.Count > 0)
+                {
+                    EnvironnementDropdown.value = 0;
                     OnEnvironnementChanged(0);
+                }
             }
         }
         catch (System.Exception ex)
@@ -175,11 +142,7 @@ public class EnvironnementSelectionUI : MonoBehaviour
             SetStatus($"Erreur lors du chargement des environnements: {ex.Message}", true);
             Debug.LogError($"Erreur ChargerEnvironnements: {ex}");
             if (EnvironnementDropdown != null)
-            {
-                EnvironnementDropdown.ClearOptions();
-                EnvironnementDropdown.AddOptions(new System.Collections.Generic.List<string> { "— Erreur de chargement —" });
-                EnvironnementDropdown.RefreshShownValue();
-            }
+                EnvironnementDropdown.AddOptions(new List<TMP_Dropdown.OptionData> { new TMP_Dropdown.OptionData("— Erreur —") });
         }
     }
 
@@ -200,33 +163,25 @@ public class EnvironnementSelectionUI : MonoBehaviour
         }
 
         // Mettre à jour les positions disponibles
-        if (PositionDropdown != null && _environnementSelectionne.PositionsDisponibles != null)
+        if (PositionDropdown != null)
         {
             PositionDropdown.ClearOptions();
             var posOptions = _environnementSelectionne.PositionsDisponibles
-                .Select(p => new TMP_Dropdown.OptionData(FormatPositionName(p)))
+                .Select(p => new TMP_Dropdown.OptionData(p.NomAffichage))
                 .ToList();
             PositionDropdown.AddOptions(posOptions);
-            if (posOptions.Count > 0)
-            {
-                PositionDropdown.value = 0;
-                PositionDropdown.RefreshShownValue();
-            }
+            if (posOptions.Count > 0) PositionDropdown.value = 0;
         }
 
         // Mettre à jour les niveaux de difficulté
-        if (DifficulteDropdown != null && _environnementSelectionne.NiveauxDifficulte != null)
+        if (DifficulteDropdown != null)
         {
             DifficulteDropdown.ClearOptions();
             var diffOptions = _environnementSelectionne.NiveauxDifficulte
                 .Select(d => new TMP_Dropdown.OptionData(FormatDifficulteName(d)))
                 .ToList();
             DifficulteDropdown.AddOptions(diffOptions);
-            if (diffOptions.Count > 0)
-            {
-                DifficulteDropdown.value = 0;
-                DifficulteDropdown.RefreshShownValue();
-            }
+            if (diffOptions.Count > 0) DifficulteDropdown.value = 0;
         }
 
         // Mettre à jour la durée par défaut
@@ -273,11 +228,14 @@ public class EnvironnementSelectionUI : MonoBehaviour
             return;
         }
 
+        // Récupérer la position sélectionnée
+        var positionSelectionnee = _environnementSelectionne.PositionsDisponibles[PositionDropdown.value];
+
         // Créer la configuration
         _configuration = new ConfigurationEnvironnement
         {
             IdEnvironnement = _environnementSelectionne.IdEnvironnement,
-            PositionDepart = _environnementSelectionne.PositionsDisponibles[PositionDropdown.value],
+            PositionDepart = positionSelectionnee.IdPosition,
             NiveauDifficulte = _environnementSelectionne.NiveauxDifficulte[DifficulteDropdown.value],
             NiveauAssistance = (int)NiveauAssistanceSlider.value,
             Duree = duree
@@ -286,7 +244,7 @@ public class EnvironnementSelectionUI : MonoBehaviour
         // Afficher un résumé de la configuration
         string resume = $"Environnement configuré:\n" +
                        $"- {_environnementSelectionne.NomEnvironnement}\n" +
-                       $"- Position: {FormatPositionName(_configuration.PositionDepart)}\n" +
+                       $"- Position: {positionSelectionnee.NomAffichage}\n" +
                        $"- Difficulté: {FormatDifficulteName(_configuration.NiveauDifficulte)}\n" +
                        $"- Assistance: {_configuration.NiveauAssistance}\n" +
                        $"- Durée: {_configuration.Duree}s";
@@ -295,8 +253,16 @@ public class EnvironnementSelectionUI : MonoBehaviour
 
         Debug.Log($"Configuration environnement créée: {_configuration.IdEnvironnement}");
         
-        // TODO: Ici vous pouvez déclencher le lancement de la session VR
-        // Par exemple: StartVRSession(_configuration);
+        // Lancer la session via le EnvironnementManager
+        if (EnvironnementManager.Instance != null)
+        {
+            EnvironnementManager.Instance.LancerSession(_configuration);
+        }
+        else
+        {
+            Debug.LogError("EnvironnementManager non trouvé !");
+            SetStatus("Erreur: EnvironnementManager non trouvé", true);
+        }
     }
 
     /// <summary>
@@ -305,21 +271,6 @@ public class EnvironnementSelectionUI : MonoBehaviour
     public ConfigurationEnvironnement GetConfiguration()
     {
         return _configuration;
-    }
-
-    /// <summary>
-    /// Formate le nom d'une position pour l'affichage
-    /// </summary>
-    private string FormatPositionName(string position)
-    {
-        return position switch
-        {
-            "assis" => "Assis",
-            "debout" => "Debout",
-            "allonge" => "Allongé",
-            "assise-centre" => "Assis (Centre)",
-            _ => position
-        };
     }
 
     /// <summary>
@@ -348,37 +299,5 @@ public class EnvironnementSelectionUI : MonoBehaviour
     {
         if (StatusText == null) return;
         StatusText.text = string.Empty;
-    }
-
-    /// <summary>
-    /// S'assure que le champ Durée est cliquable (parent Image ne bloque pas les raycasts)
-    /// et que le texte/placeholder sont visibles.
-    /// </summary>
-    private void EnsureDureeInputClickable()
-    {
-        if (DureeInputField == null) return;
-
-        var rt = DureeInputField.GetComponent<RectTransform>();
-        if (rt != null && rt.parent != null)
-        {
-            var parentImage = rt.parent.GetComponent<UnityEngine.UI.Image>();
-            if (parentImage != null)
-            {
-                parentImage.raycastTarget = false;
-            }
-        }
-
-        if (DureeInputField.textComponent != null)
-        {
-            DureeInputField.textComponent.color = Color.black;
-        }
-        if (DureeInputField.placeholder != null)
-        {
-            var ph = DureeInputField.placeholder as TextMeshProUGUI;
-            if (ph != null)
-            {
-                ph.color = new Color(0.2f, 0.2f, 0.2f, 0.7f);
-            }
-        }
     }
 }

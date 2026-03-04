@@ -17,6 +17,9 @@ public class DoctorLoginUI : MonoBehaviour
     public GameObject LoginPanel;
     public GameObject ConfigurationPanel;
 
+    [Tooltip("À assigner pour que les listes (environnement, position, etc.) se remplissent à l'ouverture. Sinon le dropdown garde « Option A, B, C ».")]
+    public EnvironnementSelectionUI EnvironnementSelectionUI;
+
     [Header("Bouton Commencer (ouvre cette page)")]
     public Button CommencerButton;
 
@@ -638,7 +641,11 @@ public class DoctorLoginUI : MonoBehaviour
         }
 
         if (LoginPanel != null) LoginPanel.SetActive(false);
-        if (CommencerButton != null) CommencerButton.gameObject.SetActive(true);
-        if (ConfigurationPanel != null) ConfigurationPanel.SetActive(true);
+        if (CommencerButton != null) CommencerButton.gameObject.SetActive(false); // Cacher "Commencer" quand la panneau environnement est ouverte
+        // Ouvrir via ShowForm() pour remplir les dropdowns (environnement, position, difficulté) ; sinon garde "Option A, B, C"
+        if (EnvironnementSelectionUI != null)
+            EnvironnementSelectionUI.ShowForm();
+        else if (ConfigurationPanel != null)
+            ConfigurationPanel.SetActive(true);
     }
 }

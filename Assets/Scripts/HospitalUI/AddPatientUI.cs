@@ -43,15 +43,6 @@ public class AddPatientUI : MonoBehaviour
             AnneeNaissance.contentType = TMP_InputField.ContentType.IntegerNumber;
             AnneeNaissance.characterLimit = 4;
         }
-
-        // Remplir le dropdown Sexe avec Homme/Femme (évite Option A/B/C de l'éditeur)
-        if (Sexe != null)
-        {
-            Sexe.ClearOptions();
-            Sexe.AddOptions(new System.Collections.Generic.List<string> { "Homme", "Femme" });
-            Sexe.value = 0;
-            Sexe.RefreshShownValue();
-        }
     }
 
     // Called by the top-level "Add patient" button to open the form.
@@ -66,20 +57,15 @@ public class AddPatientUI : MonoBehaviour
         MainMenuButtonsController.Instance?.OnMenuOpened();
     }
 
-    // Called by a "Cancel" button on the form to close it. Returns to Commencer menu (not initial screen).
+    // Called by a "Cancel" button on the form to close it.
     public void HideForm()
     {
         if (FormPanel == null) return;
         FormPanel.SetActive(false);
+        // Hide optional initial canvas buttons when form is closed
         if (InitialAddButton) InitialAddButton.SetActive(false);
         if (InitialCancelButton) InitialCancelButton.SetActive(false);
         MainMenuButtonsController.Instance?.OnMenuClosed();
-        var doctorLogin = UnityEngine.Object.FindObjectOfType<DoctorLoginUI>();
-        if (doctorLogin != null)
-        {
-            doctorLogin.ShowLoginPanel(); // вернуть в меню Commencer (списки), не на экран с одной кнопкой
-            doctorLogin.RefreshPatients();
-        }
     }
 
     // Called by the "Add" button on the form.
