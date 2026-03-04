@@ -303,7 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IdPosition: 0
-  NomAffichage: "\u0422\u0435\u0421\u0422\u0418\u0420\u041E\u0412\u041A\u0410"
+  NomAffichage: "\u0422\u0435\u0421\u0422\u0418\u0420\u041E\u0412\u041A\u0410\u0439\u0439\u0439\u0439\u0439\u0439\u0439\u0439\u0439\u0439\u0439\u0439"
 --- !u!1 &1888501254
 GameObject:
   m_ObjectHideFlags: 0
