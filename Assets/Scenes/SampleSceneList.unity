@@ -3719,39 +3719,77 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _environnements:
   - IdEnvironnement: 0
-    NomEnvironnement: "\u0442\u0435\u0441\u0442\u0438\u0440\u043E\u0432\u043A\u0430"
-    Description: "\u0442\u0435\u0441\u0442\u0438\u0440\u043E\u0432\u043A\u0430\u0442\u0435\u0441\u0442\u0438\u0440\u043E\u0432\u043A\u0430\u0442\u0435\u0441\u0442\u0438\u0440\u043E\u0432\u043A\u0430\u0442\u0435\u0441\u0442\u0438\u0440\u043E\u0432\u043A\u0430"
-    NomScene: test1
-    PositionsDisponibles:
-    - IdPosition: 0
-      NomAffichage: "\u0422\u0415\u0421\u0422\u0418\u0420\u041E\u0412\u041A\u0410"
-      Position: {x: 0, y: 0, z: 0}
-      Rotation: {x: 0, y: 0, z: 0}
-    - IdPosition: 1
-      NomAffichage: "\u0422\u0415\u0421\u0422\u0418\u0420\u041E\u0412\u041A\u04101111"
-      Position: {x: 0, y: 0, z: 0}
-      Rotation: {x: 0, y: 0, z: 0}
+    NomEnvironnement: "Caf\xE9"
+    Description: "Un petit caf\xE9 chaleureux avec des tables et un comptoir. Un
+      endroit calme pour se retrouver et discuter."
+    NomScene: "S_Caf\xE9"
+    PositionsDisponibles: []
     NiveauxDifficulte:
-    - 00000000
-    - 111111111
-    DureeDefaut: 2147483647
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+    DureeDefaut: 100
   - IdEnvironnement: 1
-    NomEnvironnement: "\u0435\u0443\u044B\u0435"
-    Description: "\u0443\u0432\u0448\u0444\u0448\u044B\u0449\u0432\u0444\u0432"
-    NomScene: test0
-    PositionsDisponibles:
-    - IdPosition: 0
-      NomAffichage: "\u0422\u0415\u0421\u0422\u0418\u0420\u041E\u0412\u041A\u0410"
-      Position: {x: 0, y: 0, z: 0}
-      Rotation: {x: 0, y: 0, z: 0}
-    - IdPosition: 1
-      NomAffichage: "\u0422\u0415\u0421\u0422\u0418\u0420\u041E\u0412\u041A\u04101111"
-      Position: {x: 0, y: 0, z: 0}
-      Rotation: {x: 0, y: 0, z: 0}
+    NomEnvironnement: Cuisine
+    Description: "Une cuisine remplie d\u2019ustensiles, de plans de travail et d\u2019appareils.
+      Un lieu parfait pour pr\xE9parer de bons plats."
+    NomScene: S_Cuisine
+    PositionsDisponibles: []
     NiveauxDifficulte:
-    - 00000000
-    - 111111111
-    DureeDefaut: 2147483647
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+    DureeDefaut: 100
+  - IdEnvironnement: 2
+    NomEnvironnement: Parc
+    Description: "Un grand parc avec des arbres, des bancs et de l\u2019herbe. Un
+      endroit ouvert et tranquille pour se promener. "
+    NomScene: S_Parc
+    PositionsDisponibles: []
+    NiveauxDifficulte:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+    DureeDefaut: 100
+  - IdEnvironnement: 3
+    NomEnvironnement: Plage
+    Description: "Une plage ensoleill\xE9e avec du sable chaud et un tiki bar. Les
+      joueurs peuvent profiter de l\u2019ambiance tropicale et des boissons fra\xEEches."
+    NomScene: S_Plage
+    PositionsDisponibles: []
+    NiveauxDifficulte:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+    DureeDefaut: 100
 --- !u!4 &425523707
 Transform:
   m_ObjectHideFlags: 0
